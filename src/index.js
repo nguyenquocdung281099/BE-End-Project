@@ -18,4 +18,4 @@ app.use(appRouter);
 
 app.use(express.json());
 
-app.listen(process.env.PORT || 5555, () => console.log("server is running in port 5555"));
+app.listen(process.env.PORT || 5555);
