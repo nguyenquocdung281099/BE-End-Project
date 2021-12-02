@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "end_project_be",
   "version": "1.0.0",
   "description": "",
@@ -8,7 +9,6 @@
     "server": "babel-node ./src",
     "dev": "nodemon --exec npm run server"
   },
-  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
