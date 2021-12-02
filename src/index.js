@@ -1,6 +1,5 @@
 import express from "express";
 import connect from "./config/db";
-import bodyParser from "body-parser";
 import appRouter from "./router/index";
 import cors from "cors";
 
