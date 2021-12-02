@@ -46,7 +46,6 @@ const AuthController = {
 
   register: (req, res) => {
     const requestData = req.body.requestData;
-    console.log(requestData);
     Account.find({ email: requestData.email }, async (err, docs) => {
       if (err) {
         res.status(400).json("err");

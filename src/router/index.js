@@ -3,6 +3,7 @@ const appRouter = express.Router();
 
 import AuthController from "../app/controller/AuthController";
 import BookingController from "../app/controller/BookingController";
+import ExtraServiceController from "../app/controller/ExtraServiceController";
 import ProductController from "../app/controller/ProductController";
 import PromotionController from "../app/controller/PromotionController";
 import RoomController from "../app/controller/RoomController";
@@ -36,8 +37,14 @@ appRouter.get("/typeRooms", RoomController.getTypeRoom);
 //booking
 
 appRouter.post("/bookingRoom", middleware.verifyAuth, BookingController.BookingRoom);
+appRouter.get("/myBooking", middleware.verifyAuth, BookingController.getMyBooking);
 
+appRouter.get("/getBlankDate", BookingController.GetBlankDate);
 // promotion
 
 appRouter.post("/checkPromotion", PromotionController.CheckPromotion);
+
+// extra service
+
+appRouter.get("/extraService", ExtraServiceController.getExtraService);
 export default appRouter;

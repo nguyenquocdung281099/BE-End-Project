@@ -1,20 +1,22 @@
-import express from 'express';
-import connect from './config/db';
-import bodyParser from 'body-parser';
-import appRouter from "./router/index"
-import cors from "cors"
+import express from "express";
+import connect from "./config/db";
+import bodyParser from "body-parser";
+import appRouter from "./router/index";
+import cors from "cors";
 
 const app = express();
-connect()
+connect();
 
 app.use(express.json());
-app.use(express.urlencoded({
-  extended: true
-}));
-app.use(cors())
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(cors());
 
 app.use(appRouter);
 
-app.use(express.json())
+app.use(express.json());
 
-app.listen(5555, () => console.log('server is running in port 5555'));
+app.listen(process.env.PORT || 5555, () => console.log("server is running in port 5555"));

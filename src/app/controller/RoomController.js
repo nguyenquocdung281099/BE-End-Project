@@ -14,16 +14,15 @@ const RoomController = {
       ...(rating && { rating: rating }),
     };
     const sort = { ...(query._sort && { pricePerday: "desc" }) };
-    console.log({ filter, sort });
     Room.find(filter)
       // .sort({ pricePerday: -1 })
       .limit(limit)
       .skip(limit * (page - 1))
       .populate("idtyperoom")
       .exec((err, Rooms) => {
+        console.log(Rooms);
         Room.count(filter).exec((err, count) => {
           // đếm để tính có bao nhiêu trang
-          console.log("Rooms", { err, Rooms });
           if (err) {
             return res.status(404).json({
               success: false,

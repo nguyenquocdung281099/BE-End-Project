@@ -26,7 +26,7 @@ const BookingSchema = new Schema(
     },
     idroom: {
       required: true,
-      type: Number,
+      type: String,
     },
     userName: {
       required: true,

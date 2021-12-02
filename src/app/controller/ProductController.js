@@ -21,7 +21,6 @@ const ProductController = {
 
   getProduct: (req, res) => {
     // const bodyRequest = req;
-    console.log(req);
     const limit = 5;
     const page = 1;
     Product.find({})
