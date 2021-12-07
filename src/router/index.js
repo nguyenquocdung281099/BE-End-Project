@@ -3,6 +3,7 @@ const appRouter = express.Router();
 
 import AuthController from "../app/controller/AuthController";
 import BookingController from "../app/controller/BookingController";
+import CommentController from "../app/controller/CommentController";
 import ExtraServiceController from "../app/controller/ExtraServiceController";
 import ProductController from "../app/controller/ProductController";
 import PromotionController from "../app/controller/PromotionController";
@@ -32,6 +33,7 @@ appRouter.get("/hotProduct", ProductController.getHotProduct);
 // room
 
 appRouter.get("/rooms", RoomController.getRooms);
+appRouter.get("/roomCurrent", RoomController.getRoomCurrent);
 appRouter.get("/typeRooms", RoomController.getTypeRoom);
 
 //booking
@@ -47,4 +49,10 @@ appRouter.post("/checkPromotion", PromotionController.CheckPromotion);
 // extra service
 
 appRouter.get("/extraService", ExtraServiceController.getExtraService);
+
+// comment
+
+appRouter.get("/comment", CommentController.getComment);
+appRouter.post("/setComment", middleware.verifyAuth, CommentController.createComment);
+
 export default appRouter;

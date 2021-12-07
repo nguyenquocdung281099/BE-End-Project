@@ -1,3 +1,4 @@
+import { json } from "body-parser";
 import Room from "./model/Rooms";
 import TypeRoom from "./model/TypeRoom";
 const RoomController = {
@@ -54,6 +55,23 @@ const RoomController = {
         res.send({ data: type, success: true });
       }
     });
+  },
+  getRoomCurrent: (req, res) => {
+    const { id } = req.query;
+    Room.findOne({ _id: id })
+      .populate("idtyperoom")
+      .then((docs) =>
+        res.json({
+          data: docs,
+          success: true,
+        })
+      )
+      .catch((err) =>
+        res.status(404).json({
+          data: {},
+          success: false,
+        })
+      );
   },
 };
 

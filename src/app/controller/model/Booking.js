@@ -41,6 +41,7 @@ const BookingSchema = new Schema(
       required: true,
       type: String,
     },
+    codeDiscount: String,
   },
   {
     collection: "Booking",

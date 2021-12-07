@@ -35,6 +35,11 @@ const AuthController = {
               email: docs.email,
               userName: docs.userName,
               avatar: docs.avatar || null,
+              address: docs.address,
+              fullName: docs.fullName,
+              phone: docs.phone,
+              id: docs._id,
+              idRole: docs.idRole,
             })
           : res.status(400).send({
               success: false,

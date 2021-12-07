@@ -1,5 +1,5 @@
 import express from "express";
-import connect from "./config/db/index";
+import connect from "./config/db";
 import appRouter from "./router/index";
 import cors from "cors";
 

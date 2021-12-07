@@ -1,21 +1,18 @@
+import moment from "moment";
+import Promotion from "./model/Promotion";
+
 const PromotionController = {
   CheckPromotion: (req, res) => {
     const { codePromotion } = req.body.requestData;
     Promotion.findOne({ code: codePromotion }, (err, docs) => {
-      if (err) {
-        res.status(404).json({
-          success: false,
-          message: "err 404",
-        });
-      } else if (!docs) {
-        res.status(404).json({
-          success: false,
-          message: "not have promotion",
+      console.log(docs);
+      if (docs && moment(new Date(docs.expiryDate)) > moment() && docs.amount > 0) {
+        return res.json({
+          data: { code: docs.code, discount: docs.discount, id: docs._id, name: docs.name },
+          success: true,
         });
       } else {
-        res.json({
-          ...docs,
-        });
+        return res.sendStatus(404);
       }
     });
   },
