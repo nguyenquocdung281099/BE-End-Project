@@ -36,7 +36,6 @@ const CommentController = {
     const newComment = new Comment({
       ...requestData,
     });
-    console.log(newComment);
     newComment.save((err, docs) => console.log({ err, docs }));
     res.json({
       success: true,

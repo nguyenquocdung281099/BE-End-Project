@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 import Account from "../app/controller/model/Auth";
-import { isArray, isEmpty } from "lodash";
 dotenv.config();
 
 export const verifyAdmin = (req, res, next) => {

@@ -32,9 +32,9 @@ const RoomSchema = new Schema(
     image: [],
   },
   {
-    collection: "Room",
+    collection: "Room2",
   }
 );
 
-const Room= mongoose.model("Room", RoomSchema);
-export default Room;
+const Room2= mongoose.model("Room2", RoomSchema);
+export default Room2;

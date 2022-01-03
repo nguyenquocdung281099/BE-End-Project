@@ -14,9 +14,13 @@ const AuthController = {
           message: "mật khẩu sai, xin mời nhập lại mật khẩu",
         });
       } else {
-        const accessToken = jwt.sign({ email: docs.email }, process.env.ACCESS_KEY, {
-          expiresIn: "3000s",
-        });
+        const accessToken = jwt.sign(
+          { email: docs.email },
+          process.env.ACCESS_KEY,
+          {
+            expiresIn: "3000s",
+          }
+        );
         const refreshToken = jwt.sign(data, process.env.JWT_KEY, {
           expiresIn: "30h",
         });
@@ -27,7 +31,10 @@ const AuthController = {
             new: true,
           }
         );
-        const checkPassword = await bcrypt.compare(data.password, docs.password);
+        const checkPassword = await bcrypt.compare(
+          data.password,
+          docs.password
+        );
         checkPassword
           ? res.send({
               accessToken,
@@ -172,6 +179,8 @@ const AuthController = {
       }
     });
   },
+
+  
 };
 
 export default AuthController;

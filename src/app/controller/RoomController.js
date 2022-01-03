@@ -1,5 +1,5 @@
 import { json } from "body-parser";
-import Room from "./model/Rooms";
+import Room from "./model/Room2";
 import TypeRoom from "./model/TypeRoom";
 const RoomController = {
   // get Room
@@ -9,20 +9,20 @@ const RoomController = {
     const limit = parseInt(query.limit) || 5;
     const page = parseInt(query.page) || 1;
     const rating = parseInt(query.rating) || null;
+    const search = query?.search || "";
     const idtyperoom = query.type || null;
     const filter = {
       ...(idtyperoom && { idtyperoom: idtyperoom }),
       ...(rating && { rating: rating }),
+      ...(search && { name: new RegExp(search) }),
     };
     const sort = { ...(query._sort && { pricePerday: "desc" }) };
-    Room.find(filter)
-      // .sort({ pricePerday: -1 })
+    Room.find({ ...filter })
       .limit(limit)
       .skip(limit * (page - 1))
       .populate("idtyperoom")
       .exec((err, Rooms) => {
-        console.log(Rooms);
-        Room.count(filter).exec((err, count) => {
+        Room.count({ ...filter }).exec((err, count) => {
           // đếm để tính có bao nhiêu trang
           if (err) {
             return res.status(404).json({
@@ -56,6 +56,7 @@ const RoomController = {
       }
     });
   },
+
   getRoomCurrent: (req, res) => {
     const { id } = req.query;
     Room.findOne({ _id: id })
@@ -73,6 +74,8 @@ const RoomController = {
         })
       );
   },
+
+
 };
 
 export default RoomController;

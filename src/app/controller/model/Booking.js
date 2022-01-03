@@ -27,6 +27,7 @@ const BookingSchema = new Schema(
     idroom: {
       required: true,
       type: String,
+      ref:"Room2"
     },
     userName: {
       required: true,

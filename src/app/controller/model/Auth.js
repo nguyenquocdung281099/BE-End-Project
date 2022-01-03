@@ -15,9 +15,9 @@ const AccountSchema = new Schema(
     idRole: String,
   },
   {
-    collection: "Account",
+    collection: "Acount",
   }
 );
 
-const Account = mongoose.model("Account", AccountSchema);
+const Account = mongoose.model("Acount", AccountSchema);
 export default Account;
