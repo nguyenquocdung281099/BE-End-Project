@@ -1,5 +1,4 @@
 import Comment from "./model/Comment";
-
 const CommentController = {
   getComment: (req, res) => {
     const query = req.query;
@@ -42,5 +41,6 @@ const CommentController = {
       message: "đăng kí tài khoản thành công",
     });
   },
+
 };
 export default CommentController;

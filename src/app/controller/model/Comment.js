@@ -15,12 +15,21 @@ const CommentSchema = new Schema(
     idUser: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: "Account",
+      ref: "Acount",
     },
     idRoom: {
       type: Schema.Types.ObjectId,
       required: true,
     },
+    avatar:{
+      type: String,
+    },
+    userName:{
+      type: String,
+    },
+    createAt:{
+      type: String,
+    }
   },
   {
     collection: "Comment",

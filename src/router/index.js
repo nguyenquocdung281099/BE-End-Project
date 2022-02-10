@@ -12,7 +12,7 @@ import ProductController from "../app/controller/ProductController";
 import PromotionController from "../app/controller/PromotionController";
 import RoomController from "../app/controller/RoomController";
 import * as middleware from "../until/index";
-
+import nodemailer from "nodemailer";
 appRouter.get("/", (req, res) => {
   res.send("hello bro");
 });
@@ -77,7 +77,6 @@ appRouter.post(
   middleware.verifyAuth,
   CommentController.createComment
 );
-
 //! admin router
 // master
 appRouter.get("/admin/masterData", DashboardController.getALlDataDashboard);
@@ -85,7 +84,10 @@ appRouter.get("/admin/user", DashboardController.getListUsers);
 appRouter.get("/admin/comment", DashboardController.getListComment);
 appRouter.get("/admin/booking", BookingManangerController.getListBooking);
 appRouter.put("/admin/booking", BookingManangerController.changeStatusBooking);
-
+appRouter.get(
+  "/admin/statisticalComent",
+  DashboardController.statisticalComent
+);
 appRouter.post("/AddRoom", RoomManagerController.addRoom);
 appRouter.post("/updateRoom", RoomManagerController.updateRoom);
 appRouter.post("/deleteRoom", RoomManagerController.deleteRoom);
@@ -95,15 +97,18 @@ appRouter.post("/deleteVoucher", DashboardController.deleteVoucher);
 appRouter.get("/listVoucher", DashboardController.getListVoucher);
 appRouter.get("/listService", DashboardController.getListService);
 
-appRouter.post("/admin/addService", DashboardController.addService)
-appRouter.post("/admin/addVoucher", DashboardController.addVoucher)
+appRouter.post("/admin/addService", DashboardController.addService);
+appRouter.post("/admin/addVoucher", DashboardController.addVoucher);
 
+appRouter.post("/admin/updateService", DashboardController.updateService);
+appRouter.post("/admin/updateVoucher", DashboardController.updateVoucher);
+appRouter.get(
+  "/admin/getAllTypeRoom",
+  RoomManagerController.getAllListTypeRoom
+);
+appRouter.get("/admin/getTypeRoomMeta", RoomManagerController.getTypeRoomMeta);
 
-appRouter.post("/admin/updateService", DashboardController.updateService)
-appRouter.post("/admin/updateVoucher", DashboardController.updateVoucher)
-appRouter.get("/admin/getAllTypeRoom", RoomManagerController.getAllListTypeRoom)
-appRouter.get("/admin/getTypeRoomMeta",RoomManagerController.getTypeRoomMeta)
+appRouter.post("/admin/updateTypeRooms", RoomManagerController.updateTypeRooms);
+appRouter.post("/admin/addTypeRooms", RoomManagerController.addTypeRooms);
 
-appRouter.post("/admin/updateTypeRooms", RoomManagerController.updateTypeRooms)
-appRouter.post("/admin/addTypeRooms", RoomManagerController.addTypeRooms)
 export default appRouter;

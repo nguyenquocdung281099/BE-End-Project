@@ -5,7 +5,9 @@ import Room from "../model/Room2";
 import ExtraService from "../model/ExtraService";
 import Comment from "../model/Comment";
 import Promotion from "../model/Promotion";
+import { dataTrain } from "../../../constant/index";
 
+const { BayesClassifier } = require("natural");
 const DashboardController = {
   getALlDataDashboard: (req, res) => {
     let data = {};
@@ -132,15 +134,30 @@ const DashboardController = {
         });
       });
   },
-  getListComment: (req, res) => {
+  getListComment: async (req, res) => {
     const query = req.query;
     const limit = parseInt(query?.limit) || 4;
     const page = parseInt(query?.page) || 1;
     const search = query?.search || "";
     const filter = search !== "undefined" ? { name: search } : {};
+    const classifier = new BayesClassifier();
+    const trainData = async () => {
+      dataTrain.map((item) => classifier.addDocument(item.input, item.output));
+      await classifier.train();
+    };
+
+    await trainData();
+
+    classifier.save("classifier.json", function (err, classifier) {
+      if (err) {
+        console.log(err);
+      }
+      // the classifier is saved to the classifier.json file!
+    });
     Comment.find()
       .limit(limit)
       .skip(limit * (page - 1))
+      .sort({ createAt: -1 })
       .exec((err, comment) => {
         Comment.count(filter).exec((err, count) => {
           // đếm để tính có bao nhiêu trang
@@ -150,8 +167,15 @@ const DashboardController = {
               message: "không tồn tại dữ liệu",
             });
           }
+          const newComent = comment.map((item) => {
+            return {
+              ...item._doc,
+              createAt: item.createAt,
+              evaluate: classifier.classify(item.content),
+            };
+          });
           res.json({
-            data: comment,
+            data: newComent,
             success: true,
             meta: {
               page: page,
@@ -175,7 +199,31 @@ const DashboardController = {
       }
     });
   },
+  statisticalComent: async (req, res) => {
+    const classifier = new BayesClassifier();
+    const trainData = async () => {
+      dataTrain.map((item) => classifier.addDocument(item.input, item.output));
+      await classifier.train();
+    };
 
+    await trainData();
+    Comment.find({}, (err, docs) => {
+      if(!err){
+        const dataTrain = docs.map((item) => {
+          return classifier.classify(item.content);
+        });
+        let good = 0;
+        dataTrain.forEach((item) => {
+          if (item === "good") {
+            good++;
+          }
+        });
+        res.json({
+          data: good / docs.length
+        })
+      }
+    });
+  },
   deleteService: (req, res) => {
     const { id } = req.body;
     ExtraService.findByIdAndDelete(id, (err, docs) => {
