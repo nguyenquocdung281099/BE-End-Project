@@ -2,7 +2,7 @@ import express from "express";
 import connect from "./config/db";
 import appRouter from "./router/index";
 import cors from "cors";
-import Comment from "./app/controller/model/Comment";
+
 import ComponentRealTime from "./app/controller/realTime";
 const http = require("http");
 const app = express();
@@ -14,6 +14,7 @@ const socketIo = require("socket.io")(server, {
     origin: "*",
   },
 });
+
 ComponentRealTime(socketIo);
 connect();
 

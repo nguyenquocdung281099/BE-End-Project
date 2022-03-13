@@ -6,7 +6,7 @@ dotenv.config();
 
 export const verifyAdmin = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader.split(" ");
+  const token = authHeader?.split(" ");
   jwt.verify(token[1], process.env.ACCESS_KEY, (err, data) => {
     if (err) {
       res.status(401).send({
@@ -35,7 +35,7 @@ export const verifyAdmin = (req, res, next) => {
 
 export const verifyAuth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader.split(" ");
+  const token = authHeader?.split(" ");
   jwt.verify(token[1], process.env.ACCESS_KEY, (err, data) => {
     if (err) {
       res.status(401).send({
