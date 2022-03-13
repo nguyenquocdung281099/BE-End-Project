@@ -6,11 +6,8 @@ import moment from "moment";
 
 const RoomController = {
   // get Room
-
   getRooms: (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'example.com');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
     const query = req.query;
     const limit = parseInt(query.limit) || 5;
     const page = parseInt(query.page) || 1;

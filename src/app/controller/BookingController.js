@@ -1,6 +1,7 @@
 import { isEmpty } from "lodash";
 import moment from "moment";
 import Booking from "./model/Booking";
+import nodemailer from "nodemailer"
 
 const BookingController = {
   getMyBooking: (req, res) => {
@@ -67,9 +68,10 @@ const BookingController = {
         message: "booking room success",
       });
     } catch (error) {
+      console.log({error});
       res.status(403).json({
         success: true,
-        message: "booking room success",
+        message: "booking room fail",
       });
     }
   },

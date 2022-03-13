@@ -21,7 +21,7 @@ appRouter.get("/", (req, res) => {
 
 appRouter.post("/login", AuthController.login);
 appRouter.post("/register", AuthController.register);
-appRouter.get("/users", middleware.verifyAdmin, AuthController.getUser);
+appRouter.get("/users", middleware.verifyAuth, AuthController.getUser);
 appRouter.get("/usersTest", middleware.verifyAuth, AuthController.getUser);
 appRouter.post("/refreshToken", AuthController.refreshToken);
 appRouter.post("/userCurrent", AuthController.getCurrentUser);
