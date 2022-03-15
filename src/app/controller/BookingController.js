@@ -1,21 +1,24 @@
 import { isEmpty } from "lodash";
 import moment from "moment";
 import Booking from "./model/Booking";
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 
 const BookingController = {
   getMyBooking: (req, res) => {
     const id = req.query.id;
-    Booking.find({ idUser: id }, (err, docs) => {
-      if (err) {
-        res.status(404);
-      } else {
-        res.json({
-          success: true,
-          data: docs,
-        });
-      }
-    });
+    Booking.find({ idUser: id })
+      .populate("idroom")
+      .exec((err, docs) => {
+
+        if (err) {
+          res.status(404);
+        } else {
+          res.json({
+            success: true,
+            data: docs,
+          });
+        }
+      });
   },
 
   BookingRoom: (req, res) => {
@@ -68,7 +71,7 @@ const BookingController = {
         message: "booking room success",
       });
     } catch (error) {
-      console.log({error});
+    
       res.status(403).json({
         success: true,
         message: "booking room fail",
@@ -85,14 +88,18 @@ const BookingController = {
         if (!isEmpty(bookings)) {
           let blankPage = [];
           bookings.map((item) => {
-            const { dateStart, dateEnd } = item;
-            const totalDate =
-              moment(new Date(dateEnd)).diff(
-                moment(new Date(dateStart)),
-                "days"
-              ) + 1;
-            for (let i = 0; i < totalDate; i++) {
-              blankPage.push(moment(new Date(dateStart)).add(i, "day"));
+            const { dateStart, dateEnd, status } = item;
+
+            if (!(status === "FINISH" || status === "CANCEL")) {
+              
+              const totalDate =
+                moment(new Date(dateEnd)).diff(
+                  moment(new Date(dateStart)),
+                  "days"
+                ) + 1;
+              for (let i = 0; i < totalDate; i++) {
+                blankPage.push(moment(new Date(dateStart)).add(i, "day"));
+              }
             }
           });
           res.json({

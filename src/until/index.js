@@ -15,7 +15,7 @@ export const verifyAdmin = (req, res, next) => {
       });
     } else {
       Account.findOne({ email: data.email }, (err, docs) => {
-      console.log({docs});
+    
         if (!err) {
           docs.idRole === 1
             ? next()
@@ -39,8 +39,7 @@ export const verifyAuth = (req, res, next) => {
   const token = authHeader.split(" ");
   
   jwt.verify(token[1], process.env.ACCESS_KEY, (err, data) => {
-    console.log(token[1]);
-    console.log({err, data});
+
     if (err) {
       res.status(401).send({
         success: false,

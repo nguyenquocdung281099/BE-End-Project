@@ -16,7 +16,7 @@ const RoomController = {
     const idtyperoom = query.type || null;
     const checkin = moment(query.checkin);
     const checkout = moment(query.checkout);
-    console.log({ checkin, checkout });
+   
     const guest = query.guest;
     const filter = {
       ...(idtyperoom && { idtyperoom: idtyperoom }),

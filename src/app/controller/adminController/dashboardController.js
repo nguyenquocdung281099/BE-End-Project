@@ -239,7 +239,7 @@ const DashboardController = {
 
   deleteVoucher: (req, res) => {
     const { id } = req.body;
-    console.log(id);
+
     Promotion.findByIdAndDelete(id, (err, docs) => {
       if (err) {
         res.status(404);
@@ -333,7 +333,7 @@ const DashboardController = {
       ...requestData,
     });
     newService.save((err, docs) => {
-      console.log({ docs, err });
+  
       if (err) {
         res.status(404);
       } else {

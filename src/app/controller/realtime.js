@@ -2,6 +2,7 @@ import moment from "moment";
 import Comment from "./model/Comment";
 
 export default function ComponentRealTime(socketIo) {
+
   socketIo.on("connection", (socket) => {
     ///Handle khi có connect từ client tới
     console.log("New client connected" + socket.id);

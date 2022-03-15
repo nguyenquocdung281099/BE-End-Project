@@ -108,7 +108,7 @@ const RoomManagerController = {
 
   updateTypeRooms: (req, res) => {
     const { requestData, id } = req.body;
-    console.log({requestData});
+   
     TypeRoom.findByIdAndUpdate(id, { ...requestData }, (err, docs) => {
       if (err) {
         res.status(404);
